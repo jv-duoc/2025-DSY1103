@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.api_autos.models.ModificarVehiculo;
 import com.example.api_autos.models.Vehiculo;
 import com.example.api_autos.repository.VehiculoRepository;
 
@@ -39,5 +40,10 @@ public class VehiculoService {
     public void eliminar(String id){
         Vehiculo v = obtenerUno(id);
         repo.eliminar(v);
+    }
+
+    public void modificar(String id, ModificarVehiculo modificarVehiculo){
+        Vehiculo v = obtenerUno(id);
+        v.setPrecio(modificarVehiculo.getPrecio());
     }
 }
