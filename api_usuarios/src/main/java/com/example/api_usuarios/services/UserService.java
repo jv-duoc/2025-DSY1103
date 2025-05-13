@@ -69,4 +69,12 @@ public class UserService {
 
         return userRepository.save(usuario);
     }
+
+    public void eliminar(int id){
+        User usuario = userRepository.findById(id).orElse(null);
+        if (usuario == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado");
+        }
+        userRepository.delete(usuario);
+    }
 }
