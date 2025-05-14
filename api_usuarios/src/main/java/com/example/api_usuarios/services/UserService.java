@@ -26,6 +26,10 @@ public class UserService {
         return userRepository.findAll();    
     }
 
+    public User obtenerPorId(int id){
+        return userRepository.findById(id).orElse(null);
+    }
+
     public User registrar(UserCreate usuario){
         try {
             User nuevoUsuario = new User();
