@@ -45,7 +45,7 @@ public class CompraController {
             if(usuario == null){throw new Exception("Usuario no encontrado");}
 
             vehiculoService.eliminar(compraRequest.getIdVehiculo());
-            response.setIdBoleta("Compra exitosa vehiculo id" + veh.getId()+' Correo usuario:'+usuario.getEmail());
+            response.setIdBoleta("Compra exitosa vehiculo id" + veh.getId()+" Correo usuario:"+usuario.getEmail());
             response.setExito(true);
         } catch (Exception e) {
             response.setExito(false);
