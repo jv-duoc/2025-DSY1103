@@ -30,6 +30,10 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User obtenerPorEmail(String email){
+        return userRepository.findByEmail(email);
+    }
+
     public User registrar(UserCreate usuario){
         try {
             User nuevoUsuario = new User();
