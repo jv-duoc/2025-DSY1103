@@ -12,7 +12,7 @@
 	<artifactId>api_usuarios</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>api_usuarios</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Micro servicio de usuarios</description>
 	<url/>
 	<licenses>
 		<license/>
