@@ -1,9 +1,14 @@
 package com.example.api_usuarios.services;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,13 +19,17 @@ import com.example.api_usuarios.models.requests.UserCreate;
 import com.example.api_usuarios.models.requests.UserUpdate;
 import com.example.api_usuarios.repositories.UserRepository;
 
-import jakarta.validation.Valid;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class UserService {
     
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired JwtService jwtService;
+
 
     public List<User> obtenerTodos() {
         return userRepository.findAll();    
@@ -90,4 +99,22 @@ public class UserService {
         }
         userRepository.delete(usuario);
     }
+
+    public String intentarLogin(String email, String password) {
+        User user = obtenerPorEmail(email);
+        if(user != null){
+            boolean passwordCorrecta = comprobarPassword(user.getPassword(),password);
+
+            if(passwordCorrecta){
+                return jwtService.generarJwt(user);
+            }else{
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Contraseña invalida");
+            }
+        }else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Correo no registrado");
+        }
+        
+    }
+
+    
 }
